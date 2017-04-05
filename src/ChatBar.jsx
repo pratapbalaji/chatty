@@ -19,9 +19,25 @@ class ChatBar extends Component {
     return (
       <footer className="chatbar">
         <input className="chatbar-username" id="chatbar-username" defaultValue={this.props.currentUser.name}/>
-        <input className="chatbar-message" id="chatbar-message" placeholder = "Type your message here and hit ENTER" onKeyUp={(event) => {if(event.keyCode === 13) this.sendMessage()}}/>
+        <input className="chatbar-message" id="chatbar-message" placeholder = "Type your message here and hit ENTER" />
       </footer>
     )
   }
+
+  componentDidMount() {
+     this.socket = new WebSocket('ws://localhost:3001');
+     this.socket.onopen = () => {
+       console.log('got a connection');
+       var messageInput = document.getElementById('chatbar-message');
+       messageInput.addEventListener('keypress', (event) => {
+         if (event.which === 13) {
+
+           this.socket.send(messageInput.value);
+           messageInput.value = '';
+         }
+       });
+
+     };
+   }
 }
 export default ChatBar;

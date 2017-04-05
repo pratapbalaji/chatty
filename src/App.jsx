@@ -22,11 +22,6 @@ class App extends Component {
     this.appendMessage = this.appendMessage.bind(this);
   }
 
-  componentDidMount() {
-    var webSocket = new WebSocket("");
-
-  }
-
   appendMessage (message, user) {
     let newMessageObject = {
       username: user,
