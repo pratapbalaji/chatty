@@ -23,6 +23,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    var webSocket = new WebSocket("");
 
   }
 
