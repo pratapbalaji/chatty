@@ -4,7 +4,7 @@ class ChatBar extends Component {
   constructor() {
     super();
     this.state = {
-      username: ''
+      message: ''
     };
     this.sendMessage = this.sendMessage.bind(this);
   }
@@ -13,14 +13,13 @@ class ChatBar extends Component {
     let chatbarMessage = document.getElementById('chatbar-message').value;
     let chatbarUsername = document.getElementById('chatbar-username').value;
     this.props.appendMessage(chatbarMessage, chatbarUsername);
-    this.setState({username: chatbarUsername});
   }
 
   render() {
     return (
       <footer className="chatbar">
         <input className="chatbar-username" id="chatbar-username" defaultValue={this.props.currentUser.name}/>
-        <input className="chatbar-message" id="chatbar-message" placeholder="Type a message and hit ENTER" onKeyUp={(event) => {if(event.keyCode === 13) this.sendMessage()}}/>
+        <input className="chatbar-message" id="chatbar-message" placeholder = "Type your message here and hit ENTER" onKeyUp={(event) => {if(event.keyCode === 13) this.sendMessage()}}/>
       </footer>
     )
   }

@@ -29,7 +29,9 @@ class App extends Component {
     }
     let newMessages = this.state.messages;
     newMessages.push(newMessageObject);
-    this.setState({messages: newMessages});
+    this.setState({
+      messages: newMessages
+    });
   }
 
   render() {
