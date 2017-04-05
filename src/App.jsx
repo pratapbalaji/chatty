@@ -22,6 +22,10 @@ class App extends Component {
     this.appendMessage = this.appendMessage.bind(this);
   }
 
+  componentDidMount() {
+
+  }
+
   appendMessage (message, user) {
     let newMessageObject = {
       username: user,
