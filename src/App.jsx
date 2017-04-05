@@ -19,6 +19,17 @@ class App extends Component {
        }
      ]
     };
+    this.appendMessage = this.appendMessage.bind(this);
+  }
+
+  appendMessage (message, user) {
+    let newMessageObject = {
+      username: user,
+      content: message
+    }
+    let newMessages = this.state.messages;
+    newMessages.push(newMessageObject);
+    this.setState({messages: newMessages});
   }
 
   render() {
@@ -26,7 +37,7 @@ class App extends Component {
     return (
       <div>
         <MessageList messages={this.state.messages} />
-        <ChatBar currentUser={this.state.currentUser} />
+        <ChatBar currentUser={this.state.currentUser} appendMessage={this.appendMessage}/>
       </div>
     );
   }
