@@ -31,9 +31,12 @@ class ChatBar extends Component {
        var messageInput = document.getElementById('chatbar-message');
        messageInput.addEventListener('keypress', (event) => {
          if (event.which === 13) {
-
-           this.socket.send(messageInput.value);
-           messageInput.value = '';
+          var messageObject = {
+            user: document.getElementById('chatbar-username').value,
+            message: messageInput.value
+          }
+          this.socket.send(JSON.stringify(messageObject));
+          messageInput.value = '';
          }
        });
 
