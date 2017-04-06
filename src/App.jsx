@@ -24,12 +24,14 @@ class App extends Component {
         switch (message.type) {
           case 'incomingNotification':
             newMessageObject = {
+              cssClass: "message system",
               user: '',
               message: message.userA + " changed their name to " + message.userB
             }
           break;
           case 'incomingMessage':
             newMessageObject = {
+              cssClass: "message",
               user: message.user,
               message: message.message
             }
@@ -69,7 +71,7 @@ class App extends Component {
     console.log(this.state.currentUser);
     return (
       <div>
-        <MessageList messages={this.state.messages} />
+        <MessageList messages={this.state.messages}/>
         <ChatBar currentUser={this.state.currentUser} updateUser={this.updateUser}/>
       </div>
     );

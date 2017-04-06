@@ -7,7 +7,7 @@ class Message extends Component {
 
   render() {
     return (
-      <div className="message">
+      <div className={this.props.message.cssClass}>
         <span className="message-username">{this.props.message.user}</span>
         <span className="message-content">{this.props.message.message}</span>
       </div>
