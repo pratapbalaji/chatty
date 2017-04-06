@@ -9,7 +9,7 @@ class MessageList extends Component {
   render() {
     return (
       <main className="messages">
-        {this.props.messages.map((message, index) => <Message key={index} message={message} />)}
+        {this.props.messages.map((message, index) => <Message key={index} message={message}/>)}
       </main>
     );
   }

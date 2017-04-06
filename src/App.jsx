@@ -10,7 +10,8 @@ class App extends Component {
     this.state = {
       currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
       messages: [],
-      loggedInUsers: 0
+      loggedInUsers: 0,
+      currentUserColor: '#'+Math.floor(Math.random()*16777215).toString(16)
     };
     this.appendMessage = this.appendMessage.bind(this);
     this.updateUser = this.updateUser.bind(this);
@@ -38,7 +39,8 @@ class App extends Component {
             newMessageObject = {
               cssClass: "message",
               user: message.user,
-              message: message.message
+              message: message.message,
+              usercolor: message.usercolor
             }
           break;
         }
@@ -80,7 +82,7 @@ class App extends Component {
           <div className="navbar-users">{this.state.loggedInUsers} user(s) online</div>
         </nav>
         <MessageList messages={this.state.messages}/>
-        <ChatBar currentUser={this.state.currentUser} updateUser={this.updateUser} socket={this.socket}/>
+        <ChatBar currentUser={this.state.currentUser} updateUser={this.updateUser} socket={this.socket} usercolor={this.state.currentUserColor}/>
       </div>
     );
   }

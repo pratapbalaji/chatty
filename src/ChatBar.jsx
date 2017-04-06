@@ -31,7 +31,8 @@ class ChatBar extends Component {
           var messageObject = {
             type: 'postMessage',
             user: document.getElementById('chatbar-username').value,
-            message: messageInput.value
+            message: messageInput.value,
+            usercolor: this.props.usercolor
           }
           this.props.socket.send(JSON.stringify(messageObject));
           messageInput.value = '';
