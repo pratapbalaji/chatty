@@ -26,9 +26,6 @@ class ChatBar extends Component {
   }
 
   componentDidMount() {
-     this.socket = new WebSocket('ws://localhost:3001');
-     this.socket.onopen = () => {
-       console.log('got a connection');
        var messageInput = document.getElementById('chatbar-message');
        messageInput.addEventListener('keypress', (event) => {
          if (event.which === 13) {
@@ -37,7 +34,7 @@ class ChatBar extends Component {
             user: document.getElementById('chatbar-username').value,
             message: messageInput.value
           }
-          this.socket.send(JSON.stringify(messageObject));
+          this.props.socket.send(JSON.stringify(messageObject));
           messageInput.value = '';
          }
        });
@@ -54,12 +51,11 @@ class ChatBar extends Component {
             userA: userA,
             userB: userB
           }
-          this.socket.send(JSON.stringify(messageObject));
+          this.props.socket.send(JSON.stringify(messageObject));
           userA = userB;
         }
        });
 
      };
-   }
 }
 export default ChatBar;

@@ -6,6 +6,7 @@ class App extends Component {
 
   constructor() {
     super();
+    this.socket = new WebSocket('ws://127.0.0.1:3001');
     this.state = {
       currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
       messages: []
@@ -15,7 +16,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.socket = new WebSocket('ws://127.0.0.1:3001');
+    //this.socket = new WebSocket('ws://127.0.0.1:3001');
     this.socket.onopen = () => {
       console.log('got a connection into App.jsx');
       this.socket.onmessage = (messageEvent) => {
@@ -72,7 +73,7 @@ class App extends Component {
     return (
       <div>
         <MessageList messages={this.state.messages}/>
-        <ChatBar currentUser={this.state.currentUser} updateUser={this.updateUser}/>
+        <ChatBar currentUser={this.state.currentUser} updateUser={this.updateUser} socket={this.socket}/>
       </div>
     );
   }
