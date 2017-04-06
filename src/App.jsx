@@ -18,19 +18,29 @@ class App extends Component {
     this.socket = new WebSocket('ws://127.0.0.1:3001');
     this.socket.onopen = () => {
       console.log('got a connection into App.jsx');
-
       this.socket.onmessage = (messageEvent) => {
-            const message = JSON.parse(messageEvent.data);
-            let newMessageObject = {
+        const message = JSON.parse(messageEvent.data);
+        let newMessageObject = {};
+        switch (message.type) {
+          case 'incomingNotification':
+            newMessageObject = {
+              user: '',
+              message: message.userA + " changed their name to " + message.userB
+            }
+          break;
+          case 'incomingMessage':
+            newMessageObject = {
               user: message.user,
               message: message.message
             }
-            let newMessages = this.state.messages;
-            newMessages.push(newMessageObject);
-            this.setState({
-              messages: newMessages
-            });
-          };
+          break;
+        }
+        let newMessages = this.state.messages;
+        newMessages.push(newMessageObject);
+        this.setState({
+          messages: newMessages
+        });
+      };
     }
   }
 

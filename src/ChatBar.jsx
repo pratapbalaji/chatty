@@ -19,6 +19,7 @@ class ChatBar extends Component {
     return (
       <footer className="chatbar">
         <input className="chatbar-username" id="chatbar-username" defaultValue={this.props.currentUser.name}/>
+        {console.log(this.props.currentUser.name)}
         <input className="chatbar-message" id="chatbar-message" placeholder = "Type your message here and hit ENTER" />
       </footer>
     )
@@ -32,6 +33,7 @@ class ChatBar extends Component {
        messageInput.addEventListener('keypress', (event) => {
          if (event.which === 13) {
           var messageObject = {
+            type: 'postMessage',
             user: document.getElementById('chatbar-username').value,
             message: messageInput.value
           }
@@ -41,10 +43,19 @@ class ChatBar extends Component {
        });
 
        var messageUser = document.getElementById('chatbar-username');
+       var userA = messageUser.value;
        messageUser.addEventListener('keypress', (event) => {
         if (event.which === 13) {
-          console.log(messageUser.value);
-          this.props.updateUser(messageUser.value);
+          var userB = messageUser.value;
+          //console.log(messageUser.value);
+          this.props.updateUser(userB);
+          var messageObject = {
+            type: 'postNotification',
+            userA: userA,
+            userB: userB
+          }
+          this.socket.send(JSON.stringify(messageObject));
+          userA = userB;
         }
        });
 
