@@ -40,6 +40,14 @@ class ChatBar extends Component {
          }
        });
 
+       var messageUser = document.getElementById('chatbar-username');
+       messageUser.addEventListener('keypress', (event) => {
+        if (event.which === 13) {
+          console.log(messageUser.value);
+          this.props.updateUser(messageUser.value);
+        }
+       });
+
      };
    }
 }
