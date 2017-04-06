@@ -9,18 +9,22 @@ class App extends Component {
     this.socket = new WebSocket('ws://127.0.0.1:3001');
     this.state = {
       currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
-      messages: []
+      messages: [],
+      loggedInUsers: 0
     };
     this.appendMessage = this.appendMessage.bind(this);
     this.updateUser = this.updateUser.bind(this);
   }
 
   componentDidMount() {
-    //this.socket = new WebSocket('ws://127.0.0.1:3001');
     this.socket.onopen = () => {
       console.log('got a connection into App.jsx');
       this.socket.onmessage = (messageEvent) => {
         const message = JSON.parse(messageEvent.data);
+
+        if (message.type === 'loggedInUsers') {
+          this.setState({loggedInUsers: message.count})
+        } else {
         let newMessageObject = {};
         switch (message.type) {
           case 'incomingNotification':
@@ -43,6 +47,7 @@ class App extends Component {
         this.setState({
           messages: newMessages
         });
+      }
       };
     }
   }
@@ -68,10 +73,12 @@ class App extends Component {
   }
 
   render() {
-    console.log("Rendering App");
-    console.log(this.state.currentUser);
     return (
       <div>
+        <nav className="navbar">
+          <a href="/" className="navbar-brand">Chatty</a>
+          <div className="navbar-users">{this.state.loggedInUsers} user(s) online</div>
+        </nav>
         <MessageList messages={this.state.messages}/>
         <ChatBar currentUser={this.state.currentUser} updateUser={this.updateUser} socket={this.socket}/>
       </div>
