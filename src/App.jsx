@@ -13,7 +13,6 @@ class App extends Component {
       loggedInUsers: 0,
       currentUserColor: '#'+Math.floor(Math.random()*16777215).toString(16)
     };
-    this.appendMessage = this.appendMessage.bind(this);
     this.updateUser = this.updateUser.bind(this);
   }
 
@@ -22,7 +21,6 @@ class App extends Component {
       console.log('got a connection into App.jsx');
       this.socket.onmessage = (messageEvent) => {
         const message = JSON.parse(messageEvent.data);
-
         if (message.type === 'loggedInUsers') {
           this.setState({loggedInUsers: message.count})
         } else {
@@ -54,24 +52,10 @@ class App extends Component {
     }
   }
 
-  appendMessage (message, user) {
-    let newMessageObject = {
-      username: user,
-      content: message
-    }
-    let newMessages = this.state.messages;
-    newMessages.push(newMessageObject);
-    this.setState({
-      messages: newMessages
-    });
-  }
-
   updateUser(user) {
-
     this.setState({
       currentUser: {name: user}
     });
-
   }
 
   render() {

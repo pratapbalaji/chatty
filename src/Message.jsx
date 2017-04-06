@@ -19,8 +19,9 @@ class Message extends Component {
     {
       return (
       <div className={this.props.message.cssClass}>
-        <span className="message-username" style={{color: this.props.message.usercolor}}>{this.props.message.user}</span>
-        <span><img className="message-image" src = {this.props.message.message} /></span>
+        <span className="message-username" style={{color: this.props.message.usercolor}}>{this.props.message.user}
+        <img className ="message-image" src = {this.props.message.message}/>
+        </span>
       </div>
       );
     } else {
