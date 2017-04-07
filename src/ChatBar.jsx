@@ -24,7 +24,7 @@ class ChatBar extends Component {
             message: messageInput.value,
             usercolor: this.props.usercolor
           }
-          this.props.socket.send(JSON.stringify(messageObject));
+          this.props.sendMessages(messageObject);
           messageInput.value = '';
          }
        });
@@ -39,7 +39,7 @@ class ChatBar extends Component {
             userA: userA,
             userB: userB
           }
-          this.props.socket.send(JSON.stringify(messageObject));
+          this.props.sendMessages(messageObject);
           userA = userB;
         }
        });

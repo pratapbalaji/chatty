@@ -6,7 +6,6 @@ class App extends Component {
 
   constructor() {
     super();
-    this.socket = new WebSocket('ws://127.0.0.1:3001');
     this.state = {
       currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
       messages: [],
@@ -14,11 +13,12 @@ class App extends Component {
       currentUserColor: '#'+Math.floor(Math.random()*16777215).toString(16)
     };
     this.updateUser = this.updateUser.bind(this);
+    this.sendMessages = this.sendMessages.bind(this);
   }
 
   componentDidMount() {
+    this.socket = new WebSocket('ws://127.0.0.1:3001');
     this.socket.onopen = () => {
-      console.log('got a connection into App.jsx');
       this.socket.onmessage = (messageEvent) => {
         const message = JSON.parse(messageEvent.data);
         if (message.type === 'loggedInUsers') {
@@ -52,6 +52,10 @@ class App extends Component {
     }
   }
 
+  sendMessages(messageObject) {
+    this.socket.send(JSON.stringify(messageObject));
+  }
+
   updateUser(user) {
     this.setState({
       currentUser: {name: user}
@@ -66,7 +70,7 @@ class App extends Component {
           <div className="navbar-users">{this.state.loggedInUsers} user(s) online</div>
         </nav>
         <MessageList messages={this.state.messages}/>
-        <ChatBar currentUser={this.state.currentUser} updateUser={this.updateUser} socket={this.socket} usercolor={this.state.currentUserColor}/>
+        <ChatBar currentUser={this.state.currentUser} updateUser={this.updateUser} sendMessages = {this.sendMessages} usercolor={this.state.currentUserColor}/>
       </div>
     );
   }
